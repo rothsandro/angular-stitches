@@ -3,6 +3,7 @@ import { createCss } from '@stitches/core';
 export const { css } = createCss({
   theme: {
     colors: {
+      text: '#333',
       primary: 'blue',
       onPrimary: 'white',
     },
