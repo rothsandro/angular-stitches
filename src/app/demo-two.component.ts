@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { css } from 'src/styles';
+import classNames from 'src/utils/class-names';
 
 const styledTitle = css({
   margin: '0 0 $5 0',
@@ -23,9 +26,9 @@ const styledIntro = css({
 });
 
 @Component({
-  selector: 'app-demo-one',
+  selector: 'app-demo-two',
   template: `
-    <h1 [ngClass]="cn.title">Angular + Stitches</h1>
+    <h1 [ngClass]="cn.title$ | async | notNull">Angular + Stitches</h1>
     <p [ngClass]="cn.intro">
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
       eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
@@ -41,29 +44,19 @@ const styledIntro = css({
       <button (click)="toggleTitleColor()">Toggle title color</button>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DemoOneComponent implements OnInit {
-  cn = {
-    title: '',
-    intro: '',
-  };
+export class DemoTwoComponent  {
+  private titleIsPrimary = new BehaviorSubject(false);
 
-  private titleIsPrimary = false;
-
-  ngOnInit(): void {
-    this.buildStyles();
-  }
+  cn = classNames({
+    title$: this.titleIsPrimary.pipe(
+      map((isPrimary) => styledTitle({ color: isPrimary ? 'primary' : 'text' }))
+    ),
+    intro: styledIntro,
+  });
 
   toggleTitleColor(): void {
-    this.titleIsPrimary = !this.titleIsPrimary;
-    this.buildStyles();
-  }
-
-  private buildStyles(): void {
-    this.cn = {
-      title: styledTitle({ color: this.titleIsPrimary ? 'primary' : 'text' })
-        .className,
-      intro: styledIntro().className,
-    };
+    this.titleIsPrimary.next(!this.titleIsPrimary.value);
   }
 }
