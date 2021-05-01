@@ -6,6 +6,13 @@ export const { css } = createCss({
       primary: 'blue',
       onPrimary: 'white',
     },
+    fontSizes: {
+      1: '0.875rem',
+      2: '1rem',
+      3: '1.125rem',
+      4: '1.5rem',
+      5: '2rem',
+    },
     space: {
       1: '0.25rem',
       2: '0.5rem',
