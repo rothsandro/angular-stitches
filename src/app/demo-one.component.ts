@@ -1,27 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { css } from 'src/styles';
 
-const styledTitle = css({
-  margin: '0 0 $5 0',
-  fontSize: '$5',
-
-  variants: {
-    color: {
-      text: {
-        color: '$text',
-      },
-      primary: {
-        color: '$primary',
-      },
-    },
-  },
-});
-
-const styledIntro = css({
-  margin: '0 0 $2 0',
-  fontSize: '$3',
-});
-
 @Component({
   selector: 'app-demo-one',
   template: `
@@ -31,11 +10,7 @@ const styledIntro = css({
       eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
       voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
       clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-      amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-      nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-      diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-      sit amet.
+      amet.
     </p>
     <div>
       <button (click)="toggleTitleColor()">Toggle title color</button>
@@ -61,9 +36,30 @@ export class DemoOneComponent implements OnInit {
 
   private buildStyles(): void {
     this.cn = {
-      title: styledTitle({ color: this.titleIsPrimary ? 'primary' : 'text' })
+      title: $title({ color: this.titleIsPrimary ? 'primary' : 'text' })
         .className,
-      intro: styledIntro().className,
+      intro: $intro().className,
     };
   }
 }
+
+const $title = css({
+  margin: '0 0 $5 0',
+  fontSize: '$5',
+
+  variants: {
+    color: {
+      text: {
+        color: '$text',
+      },
+      primary: {
+        color: '$primary',
+      },
+    },
+  },
+});
+
+const $intro = css({
+  margin: '0 0 $2 0',
+  fontSize: '$3',
+});
