@@ -2,7 +2,7 @@
 
 A CSS-in-JS demo for Angular using Stitches + RxJS.
 
-Read more about this in my [blog post](https://www.sandroroth.com/blog/2021/angular-stitches).
+Read more about this in my [blog post](https://www.sandroroth.com/blog/angular-stitches).
 
 ## Getting started
 
